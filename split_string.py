@@ -1,0 +1,53 @@
+# 1 Gold Star
+
+# The built-in <string>.split() procedure works
+# okay, but fails to find all the words on a page
+# because it only uses whitespace to split the
+# string. To do better, we should also use punctuation
+# marks to split the page into words.
+
+# Define a procedure, split_string, that takes two
+# inputs: the string to split and a string containing
+# all of the characters considered separators. The
+# procedure should return a list of strings that break
+# the source string up by the characters in the splitlist.
+
+
+def split_string2(source, splitlist):
+    result = []
+    word = ""
+    for char in source:
+        if char not in splitlist:
+            word += char
+        elif word != "":
+            result.append(word)
+            word = ""
+    if word != "":
+        result.append(word)
+    return result
+    
+def split_string(source, splitlist):
+    result = []
+    atsplit = True
+    for char in source:
+        if char in splitlist:
+            atsplit = True
+        else:
+            if atsplit:
+                result.append(char)
+                atsplit = False
+            else:
+                result[-1] += char 
+    return result
+
+out = split_string("This is a test-of the,string separation-code!"," ,!-")
+print out
+#>>> ['This', 'is', 'a', 'test', 'of', 'the', 'string', 'separation', 'code']
+
+out = split_string("After  the flood   ...  all the colors came out.", " .")
+print out
+#>>> ['After', 'the', 'flood', 'all', 'the', 'colors', 'came', 'out']
+
+out = split_string("First Name,Last Name,Street Address,City,State,Zip Code",",")
+print out
+#>>>['First Name', 'Last Name', 'Street Address', 'City', 'State', 'Zip Code']
